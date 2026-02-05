@@ -1,12 +1,26 @@
 {{ define "main" }}
-  <h1>Home</h1>
+<main class="wrap">
 
-  <ul>
-    {{ range .Site.RegularPages.ByDate.Reverse }}
-      <li>
+  {{ range .Site.RegularPages.ByDate.Reverse }}
+    <article class="home-feed-item">
+      <h2 class="feed-title">
         <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        {{ with .Date }} <small> — {{ .Format "2006-01-02" }}</small>{{ end }}
-      </li>
-    {{ end }}
-  </ul>
+      </h2>
+
+      <div class="feed-meta">
+        {{ with .Params.reasoning }}
+          <span class="feed-reasoning">{{ . }}</span>
+        {{ end }}
+        {{ with .Date }}
+          <span class="feed-date">{{ .Format "2006-01-02" }}</span>
+        {{ end }}
+      </div>
+
+      {{ with .Summary }}
+        <p>{{ . }}</p>
+      {{ end }}
+    </article>
+  {{ end }}
+
+</main>
 {{ end }}
