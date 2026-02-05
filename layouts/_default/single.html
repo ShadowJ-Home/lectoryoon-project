@@ -1,1 +1,43 @@
-{{ define "main" }}{{ .Content }}{{ end }}
+{{ define "main" }}
+<main class="wrap">
+
+  <article>
+
+    <!-- 제목 -->
+    <h1>{{ .Title }}</h1>
+
+    <!-- 메타 정보: Reasoning Type → Date -->
+    {{ if or .Params.reasoning_type .Params.reasoning_type_label .Date }}
+    <div style="
+      font-size: 0.75em;
+      color: #666;
+      margin-top: 4px;
+      margin-bottom: 18px;
+    ">
+      {{ with .Params.reasoning_type_label }}
+        {{ . }}
+      {{ else }}
+        {{ with .Params.reasoning_type }}
+          {{ . }}
+        {{ end }}
+      {{ end }}
+
+      {{ if and (or .Params.reasoning_type .Params.reasoning_type_label) .Date }}
+        ·
+      {{ end }}
+
+      {{ with .Date }}
+        {{ .Format "2006-01-02" }}
+      {{ end }}
+    </div>
+    {{ end }}
+
+    <!-- 본문 -->
+    <div class="content">
+      {{ .Content }}
+    </div>
+
+  </article>
+
+</main>
+{{ end }}

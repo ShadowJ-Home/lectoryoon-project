@@ -1,1 +1,35 @@
-<!doctype html><html><body>{{ block "main" . }}{{ end }}</body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+
+  <!-- cache-bust -->
+  <link rel="stylesheet" href="/css/site.css?v={{ now.Unix }}">
+
+  <style>
+    /* ✅ header + buttonbar를 한 덩어리로 sticky */
+    #top-sticky{
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="top-sticky">
+    {{ partial "header.html" . }}
+    {{ partial "section-bar.html" . }}
+  </div>
+
+  <main class="wrap">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <!-- cache-bust -->
+  <script src="/js/site.js?v={{ now.Unix }}"></script>
+</body>
+</html>

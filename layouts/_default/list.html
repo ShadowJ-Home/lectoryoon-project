@@ -1,1 +1,92 @@
-{{ define "main" }}{{ range .Pages }}{{ .Title }}{{ end }}{{ end }}
+{{ define "main" }}
+<main>
+  {{/* 7개 섹션(홈 제외): 한글 1줄 + 영문 1줄(0.5 크기) */}}
+  {{ $ko := "" }}
+  {{ $en := "" }}
+
+  {{ if eq .RelPermalink "/power-system/" }}
+    {{ $ko = "권력과 시스템" }}{{ $en = "Power&System" }}
+  {{ else if eq .RelPermalink "/human-behavior/" }}
+    {{ $ko = "인간행동" }}{{ $en = "Human behavior" }}
+  {{ else if eq .RelPermalink "/reflections/" }}
+    {{ $ko = "보편성 성찰" }}{{ $en = "Reflections on the Human Condition" }}
+  {{ else if eq .RelPermalink "/notes-on-living/" }}
+    {{ $ko = "삶에 대한 단상" }}{{ $en = "Notes on Living" }}
+  {{ else if eq .RelPermalink "/notes-sparks/" }}
+    {{ $ko = "아이디어 기록" }}{{ $en = "Notes&Sparks" }}
+  {{ else if eq .RelPermalink "/list/" }}
+    {{ $ko = "전체목록" }}{{ $en = "List" }}
+  {{ else if eq .RelPermalink "/beginning/" }}
+    {{ $ko = "첫글부터" }}{{ $en = "Beginning" }}
+  {{ end }}
+
+  {{ if and (ne $ko "") (ne $en "") }}
+    <h1 style="margin:0;">
+      <span style="display:block;">{{ $ko }}</span>
+      <span style="display:block; font-size:0.5em; line-height:1.1;">{{ $en }}</span>
+    </h1>
+  {{ else }}
+    <h1>{{ .Title }}</h1>
+  {{ end }}
+
+  {{ if .Content }}
+    <div class="section-content">
+      {{ .Content }}
+    </div>
+  {{ end }}
+
+  {{/* ===== 여기부터 "글 목록 출력" (번호 + 제목만) ===== */}}
+
+  {{ $sections := slice "power-system" "human-behavior" "reflections" "notes-on-living" "notes-sparks" }}
+  {{ $pages := slice }}
+
+  {{/* /list/ 와 /beginning/ 은 5개 섹션 전체를 모아서 보여줌 */}}
+  {{ if or (eq .RelPermalink "/list/") (eq .RelPermalink "/beginning/") }}
+    {{ $pages = where .Site.RegularPages "Section" "in" $sections }}
+  {{ else }}
+    {{/* 그 외 섹션 페이지는 "해당 섹션 글만" 보여줌 */}}
+    {{ $pages = .RegularPages }}
+  {{ end }}
+
+  {{/* 정렬: /beginning/만 오래된순, 나머지는 최신순 */}}
+  {{ $ordered := $pages.ByDate.Reverse }}
+  {{ if eq .RelPermalink "/beginning/" }}
+    {{ $ordered = $pages.ByDate }}
+  {{ end }}
+
+  {{/* 번호는 HTML로 직접 출력: CSS/마커/브라우저 이슈와 무관하게 100% 표시됨 */}}
+  <style>
+    ol.postlist{
+      margin: 0.8em 0 0 0 !important;
+      padding-left: 0 !important;
+      list-style: none !important;
+    }
+    ol.postlist > li{
+      display: flex !important;
+      align-items: flex-start;
+      gap: 0.45em;
+      margin: 0.55em 0 !important;
+      padding: 0 !important;
+    }
+    .postnum{
+      display: inline-block;
+      width: 2.4em;
+      flex: 0 0 2.4em;
+      line-height: inherit;
+    }
+    ol.postlist > li a{
+      display: inline !important;
+    }
+  </style>
+
+  <ol class="postlist">
+    {{ range $i, $p := $ordered }}
+      <li>
+        <span class="postnum">{{ add $i 1 }}.</span>
+        <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+      </li>
+    {{ end }}
+  </ol>
+
+</main>
+{{ end }}
