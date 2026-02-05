@@ -1,4 +1,4 @@
-baseURL = "https://www.lectoryoon.com/"
+baseURL = "/"
 languageCode = "ko-kr"
 title = "Lector Yoon"
 enableRobotsTXT = true
