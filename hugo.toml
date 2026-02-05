@@ -1,20 +1,14 @@
-baseURL = "/"
+baseURL = "https://www.lectoryoon.com/"
 languageCode = "ko-kr"
-title = "Shadow J."
+title = "Lector Yoon"
 enableRobotsTXT = true
 
 [pagination]
   pageSize = 10
 
 [params]
-  subtitle_en = "Independent notes on systems, power, and human behavior"
-  subtitle_ko = "시스템, 권력 그리고 인간 행동에 관한 독립적 기록"
-
-  # =========================
-  # Section menu (editable)
-  # - ONLY this block controls the Section dropdown
-  # - slug = URL path (e.g., /humanities/)
-  # =========================
+  subtitle_en = "Public exam notes and structured learning archive"
+  subtitle_ko = "5급공채 학습·기록 아카이브"
 
   [[params.section_menu]]
     name_ko = "전체글"
@@ -27,13 +21,8 @@ enableRobotsTXT = true
     slug = "beginning"
 
   [[params.section_menu]]
-    name_ko = "인문학"
-    name_en = "Humanities"
-    slug = "humanities"
-
-  [[params.section_menu]]
     name_ko = "정치학"
-    name_en = "Politics"
+    name_en = "Political Science"
     slug = "politics"
 
   [[params.section_menu]]
@@ -42,30 +31,44 @@ enableRobotsTXT = true
     slug = "economics"
 
   [[params.section_menu]]
-    name_ko = "심리학"
-    name_en = "Psychology"
-    slug = "psychology"
+    name_ko = "행정법"
+    name_en = "Administrative Law"
+    slug = "admin-law"
 
   [[params.section_menu]]
-    name_ko = "시사논평"
-    name_en = "Commentary"
-    slug = "commentary"
+    name_ko = "행정학"
+    name_en = "Public Administration"
+    slug = "admin"
 
   [[params.section_menu]]
-    name_ko = "독서노트"
-    name_en = "Reading Notes"
-    slug = "reading-notes"
+    name_ko = "헌법"
+    name_en = "Constitution"
+    slug = "constitution"
 
   [[params.section_menu]]
-    name_ko = "개인기록"
-    name_en = "Personal"
-    slug = "personal"
+    name_ko = "언어논리"
+    name_en = "Verbal"
+    slug = "verbal"
+
+  [[params.section_menu]]
+    name_ko = "자료해석"
+    name_en = "Data Interpretation"
+    slug = "data"
+
+  [[params.section_menu]]
+    name_ko = "상황판단"
+    name_en = "Situational Judgment"
+    slug = "situational"
+
+  [[params.section_menu]]
+    name_ko = "기록노트"
+    name_en = "Notes"
+    slug = "notes"
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
 
-# 검색 인덱스용 (Home에서 /index.json 생성)
 [outputs]
   home = ["HTML", "JSON"]
