@@ -1,1 +1,229 @@
-/* skeleton */
+/* =========================
+   Base / Reset (safe minimal)
+   ========================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+ul, ol { margin: 0; padding: 0; }
+li { list-style: none; }
+
+/* =========================
+   Color tokens (SAFE)
+   ========================= */
+:root{
+  --bg: #ededed;
+  --text: #1a1a1a;
+  --muted: #5e5e5e;
+  --rule: #d7d7d7;
+  --underline: #c9c9c9;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #1a1a1a;
+    --text: #c7cacf;
+    --muted: #b3b6bb;
+    --rule: #2a2a2a;
+    --underline: #3a3a3a;
+  }
+}
+
+/* =========================
+   Layout
+   ========================= */
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.wrap{
+  width: min(980px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+/* =========================
+   Header (minimal normalization)
+   ========================= */
+header { margin: 0; padding: 0; }
+header > *:last-child { margin-bottom: 0; }
+
+.top__banner{
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+a[aria-label="Go to Home"]{
+  display: block;
+}
+
+.top__banner img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================
+   Main content spacing
+   ========================= */
+main.wrap{
+  padding: 18px 0 60px;
+}
+
+h1, h2, h3{
+  line-height: 1.25;
+  margin: 18px 0 12px;
+}
+
+p{
+  margin: 10px 0;
+}
+
+/* 링크: 색 고정 + 형광 방지 */
+a{
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-underline-offset: 2px;
+}
+
+a:hover{
+  text-decoration-color: var(--rule);
+}
+
+/* =========================
+   DETAILS / SUMMARY
+   ========================= */
+details{
+  display: block;
+  margin: 14px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+details > summary{
+  display: list-item !important;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  list-style-position: outside;
+  font-weight: 600;
+}
+
+details > summary::-webkit-details-marker{
+  display: inline-block !important;
+}
+
+details,
+details *{
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+details > summary > svg,
+details > summary .icon,
+details > summary .badge{
+  display: none !important;
+}
+
+summary{
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* =========================
+   Home feed — Title
+   ========================= */
+.feed-title{
+  font-size: 1.72rem;
+  line-height: 1.28;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 640px){
+  .feed-title{
+    font-size: 1.58rem;
+  }
+}
+
+/* =========================
+   Feed meta (Reasoning + Date)
+   ========================= */
+.feed-meta{
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+  opacity: 0.75;
+  margin: 6px 0 10px;
+  color: var(--muted);
+}
+
+.feed-meta .feed-reasoning,
+.feed-meta .feed-date{
+  white-space: nowrap;
+}
+
+/* =========================
+   Post list numbering (list page)
+   ========================= */
+.postlist{
+  margin: 14px 0 0;
+  padding-left: 0;
+  list-style: none !important;
+}
+
+.postlist > li{
+  list-style: none !important;
+  display: flex !important;
+  align-items: flex-start;
+  gap: 0.4em;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.postlist .postnum{
+  display: inline-block;
+  width: 2.4em;
+  flex: 0 0 2.4em;
+  line-height: inherit;
+}
+
+.postlist > li a{
+  display: inline;
+}
+
+@media (max-width: 640px){
+  .postlist > li{
+    margin: 12px 0 !important;
+  }
+}
+
+/* =========================
+   Dark mode glare reduction (SAFE ADD)
+   ========================= */
+@media (prefers-color-scheme: dark){
+  a:link,
+  a:visited{
+    color: var(--text);
+    text-decoration-color: var(--underline);
+  }
+
+  a:hover,
+  a:active{
+    color: var(--text);
+    text-decoration-color: var(--rule);
+  }
+
+  a:visited{
+    opacity: 0.92;
+  }
+}
