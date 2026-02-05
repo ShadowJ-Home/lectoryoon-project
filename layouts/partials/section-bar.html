@@ -82,7 +82,6 @@
 
   /* =========================================================
      Section overlay
-     - 본문 침범 0 (fixed)
   ========================================================= */
   .section-overlay{
     display: none;
@@ -123,12 +122,12 @@
     border-top: 0;
   }
 
-  .section-overlay a .so-ko{
+  .section-overlay a div:first-child{
     font-weight: 700;
     line-height: 1.15;
   }
 
-  .section-overlay a .so-en{
+  .section-overlay a div:last-child{
     margin-top: 2px;
     font-size: 12px;
     opacity: 0.85;
@@ -138,7 +137,7 @@
   }
 
   /* =========================================================
-     Search overlay (DOM만 유지)
+     Search overlay
   ========================================================= */
   .search-overlay{
     display: none;
@@ -223,7 +222,6 @@
 
 <nav class="section-bar">
   <div class="section-bar__inner wrap">
-    <!-- Home -->
     <div class="sb-cell">
       <a class="sb-btn" href="/">
         <div class="sb-btn__en">Home</div>
@@ -231,7 +229,6 @@
       </a>
     </div>
 
-    <!-- Section -->
     <div class="sb-cell" id="sectionCell">
       <button class="sb-btn" id="sectionToggleBtn" type="button"
         aria-expanded="false" aria-controls="sectionOverlay">
@@ -239,36 +236,25 @@
         <div class="sb-btn__ko">섹션선택</div>
       </button>
 
+      <!-- ✅ 메뉴는 params.section_menu "하나"만 읽는다 (중복 방지) -->
       <div class="section-overlay" id="sectionOverlay" aria-hidden="true">
-        <!-- ✅ 고정 2개: 전체글 / 첫글부터 (원하면 나중에 hugo.toml로도 뺄 수 있음) -->
-        <a href="/all/">
-          <div class="so-ko">전체글</div>
-          <div class="so-en">All</div>
-        </a>
-        <a href="/beginning/">
-          <div class="so-ko">첫글부터</div>
-          <div class="so-en">Beginning</div>
-        </a>
-
-        <!-- ✅ 사용자가 hugo.toml에서 관리하는 섹션들 -->
-        {{ $menu := .Site.Params.section_menu }}
-        {{ if $menu }}
-          {{ range $menu }}
-            {{ $slug := .slug | default "" }}
-            {{ if $slug }}
-              {{ $ko := .name_ko | default $slug }}
-              {{ $en := .name_en | default $slug }}
-              <a href="/{{ $slug }}/">
-                <div class="so-ko">{{ $ko }}</div>
-                <div class="so-en">{{ $en }}</div>
-              </a>
-            {{ end }}
-          {{ end }}
-        {{ end }}
+        {{- $menu := .Site.Params.section_menu -}}
+        {{- if $menu -}}
+          {{- range $menu -}}
+            {{- $slug := .slug -}}
+            {{- $ko := .name_ko -}}
+            {{- $en := .name_en | default $slug -}}
+            <a href="/{{ $slug }}/">
+              <div>{{ $ko }}</div>
+              <div>{{ $en }}</div>
+            </a>
+          {{- end -}}
+        {{- else -}}
+          <a href="/"><div>메뉴 없음</div><div>No menu</div></a>
+        {{- end -}}
       </div>
     </div>
 
-    <!-- Search -->
     <div class="sb-cell" id="searchCell">
       <input
         class="sb-search__input"
