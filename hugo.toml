@@ -1,11 +1,3 @@
-baseURL = "/"
-languageCode = "ko-kr"
-title = "Lector Yoon"
-enableRobotsTXT = true
-
-[pagination]
-  pageSize = 10
-
 [params]
   subtitle_en = "Public exam notes and structured learning archive"
   subtitle_ko = "5급공채 학습·기록 아카이브"
@@ -47,7 +39,7 @@ enableRobotsTXT = true
 
   [[params.section_menu]]
     name_ko = "언어논리"
-    name_en = "Verbal"
+    name_en = "Verbal Reasoning"
     slug = "verbal"
 
   [[params.section_menu]]
@@ -58,17 +50,9 @@ enableRobotsTXT = true
   [[params.section_menu]]
     name_ko = "상황판단"
     name_en = "Situational Judgment"
-    slug = "situational"
+    slug = "situation"
 
   [[params.section_menu]]
     name_ko = "기록노트"
     name_en = "Notes"
     slug = "notes"
-
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-
-[outputs]
-  home = ["HTML", "JSON"]
