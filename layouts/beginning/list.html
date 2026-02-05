@@ -1,14 +1,15 @@
 {{ define "main" }}
-  <main class="wrap">
-    <h1>첫글부터</h1>
+<main class="wrap">
+  <h1>첫글부터</h1>
 
-    <ul>
-      {{ range .Site.RegularPages.ByDate }}
-        <li>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          {{ with .Date }} <small> — {{ .Format "2006-01-02" }}</small>{{ end }}
-        </li>
-      {{ end }}
-    </ul>
-  </main>
+  {{ $pages := .Site.RegularPages.ByDate }}
+  <ol class="postlist">
+    {{ range $i, $p := $pages }}
+      <li>
+        <span class="postnum">{{ add $i 1 }}.</span>
+        <a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>
+      </li>
+    {{ end }}
+  </ol>
+</main>
 {{ end }}
